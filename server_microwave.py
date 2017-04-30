@@ -12,31 +12,30 @@ def flip_GPIO(pin_num):
     time.sleep(0.5)
     GPIO.output(pin_num, GPIO.LOW)	
 
-num0 = 24
-num1 = 17
-num2 = 4
-num3 = 11
-num4 = 6
-num5 = 26
-num6 = 10
-num7 = 27
-num8 = 14
-num9 = 8
-
-sec30orstart = 16
-reheat = 19
-kitchentimer = 13
-clearorstop = 12
-beverage = 5
-clock = 7
-frozen_vegetable = 25
-power = 9
-popcorn = 23
-timecook = 22
-potato = 18
-timedefrost = 15
-pizza = 3
-weightdefrost = 2
+gpio_func = {'num0' : 24, /
+             'num1' : 17, /
+             'num2' : 4,  /
+             'num3' : 11, /
+             'num4' : 6,  /
+             'num5' : 26, /
+             'num6' : 10, /
+             'num7' : 27, /
+             'num8' : 14, /
+             'num9' : 8,  /
+             'sec30orstart' : 16, /
+             'reheat' : 19, /
+             'kitchentimer' : 13, /
+             'clearorstop' : 12, /
+             'beverage' : 5, /
+             'clock' : 7, /
+             'frozen_vegetable' : 25, /
+             'power' : 9, /
+             'popcorn' : 23, /
+             'timecook' : 22, /
+             'potato' : 18, /
+             'timedefrost' : 15, /
+             'pizza' : 3, /
+             'weightdefrost' : 2}
 
 # Initialize
 GPIO.setmode(GPIO.BCM)
