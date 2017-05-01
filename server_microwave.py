@@ -11,7 +11,7 @@ gpio_func = {
   'num0' : 24, 
   'num1' : 17, 
   'num2' : 4,  
-  'num3' : 11, 
+  'num3' : 25, 
   'num4' : 6,  
   'num5' : 26, 
   'num6' : 10, 
