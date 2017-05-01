@@ -42,7 +42,7 @@ def flip_GPIO(func):
         print('func: ' + func)
         print("switch gpio:" + str(pin_num))
         GPIO.output(pin_num, GPIO.HIGH)
-        if func == 'clear'
+        if func == 'clear':
           time.sleep(0.5)
         else:
           time.sleep(0.1)
