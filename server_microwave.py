@@ -62,6 +62,6 @@ while(1):
 	data = s.recv(BUFFER_SIZE)
 	print "recv:", data
   for cmd in data.split('|'):
-	 flip_GPIO(cmd)
+    flip_GPIO(cmd)
 
 s.close()
