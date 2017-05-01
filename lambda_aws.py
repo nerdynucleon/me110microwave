@@ -4,6 +4,7 @@ ME 110 Smart Microwave Amazon Alexa Lambda Function Code
 
 from __future__ import print_function
 import socket
+import time
 
 
 TCP_IP = '107.170.224.107'
@@ -137,16 +138,15 @@ def set_time_intent(intent, session):
             seconds = int(intent['slots']['seconds']['value'])
 
         # Check if Inputs are Valid
-        if (((seconds / 60) + minutes) > 9):
+        if (((seconds / 60) + minutes) > 10):
             speech_output = str(minutes) + " minutes " + str(seconds) + " seconds is too long. Try something shorter"
             reprompt_text = speech_output
-        elif (seconds < 1)  or (minutes < 0):
-            speech_output = str(minutes) + " minutes " + str(seconds) + " is invalid. Try something else"
+        elif (seconds < 0)  or (minutes < 0):
+            speech_output = str(minutes) + " minutes " + str(seconds) + " seconds is invalid. Try something else"
             reprompt_text = speech_output
         else:
             # Otherwise turn on microwave for set amount of time
             if send_command_to_tunnel('clearorstop'):
-
                 send_command_to_tunnel('timecook')
                 send_command_to_tunnel(number_dict[minutes])
                 if seconds == 0:
@@ -155,6 +155,7 @@ def set_time_intent(intent, session):
                 else:
                     send_command_to_tunnel(number_dict[seconds / 10])
                     send_command_to_tunnel(number_dict[seconds % 10])
+                send_command_to_tunnel('sec30orstart')
 
                 speech_output = "Starting microwave for " + str(minutes) + " minutes " + str(seconds) + " seconds."
                 reprompt_text = ""
