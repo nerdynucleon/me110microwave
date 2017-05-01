@@ -41,8 +41,9 @@ def flip_GPIO(func):
         print('func: ' + func)
         print("switch gpio:" + str(pin_num))
         GPIO.output(pin_num, GPIO.HIGH)
-        time.sleep(0.5)
-        GPIO.output(pin_num, GPIO.LOW)	
+        time.sleep(0.25)
+        GPIO.output(pin_num, GPIO.LOW)
+        time.sleep(0.25)	
       except Exception as err:
         print('Encountered Error')
         print(func)
