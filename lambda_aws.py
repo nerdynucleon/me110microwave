@@ -69,12 +69,14 @@ gpio_func = {
 
 def send_command_to_tunnel(command):
     try:
+        print(command)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((TCP_IP, TCP_PORT))
         s.send(gpio_func[command])
         s.close()
         return True
-    except:
+    except Exception as err:
+        print(err.message)
         return False
 
 # --------------- Functions that control the skill's behavior ------------------
