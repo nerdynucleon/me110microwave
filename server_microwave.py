@@ -35,10 +35,13 @@ gpio_func = {
 }
 
 def flip_GPIO(func):
-    pin_num = gpio_func[func]
-    GPIO.output(pin_num, GPIO.HIGH)
-    time.sleep(0.5)
-    GPIO.output(pin_num, GPIO.LOW)	
+    try:
+      pin_num = gpio_func[func]
+      GPIO.output(pin_num, GPIO.HIGH)
+      time.sleep(0.5)
+      GPIO.output(pin_num, GPIO.LOW)	
+    except Exception as err:
+      print(err.message)
 
 # Initialize
 GPIO.setmode(GPIO.BCM)
@@ -58,6 +61,7 @@ while(1):
 while(1):
 	data = s.recv(BUFFER_SIZE)
 	print "recv:", data
-	flip_GPIO(data)
+  for cmd in data.split('|'):
+	 flip_GPIO(cmd)
 
 s.close()

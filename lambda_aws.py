@@ -67,12 +67,26 @@ gpio_func = {
   'weightdefrost' : 2
 }
 
+number_dict = {
+0 : 'num0',
+1 : 'num1',
+2 : 'num2',
+3 : 'num3',
+4 : 'num4',
+5 : 'num5',
+6 : 'num6',
+7 : 'num7',
+8 : 'num8',
+9 : 'num9'
+}
+
 def send_command_to_tunnel(command):
     try:
         print(command)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((TCP_IP, TCP_PORT))
-        s.send(gpio_func[command])
+        s.send(command)
+        s.send('|')
         s.close()
         return True
     except Exception as err:
@@ -132,7 +146,17 @@ def set_time_intent(intent, session):
             reprompt_text = speech_output
         else:
             # Otherwise turn on microwave for set amount of time
-            if send_command_to_tunnel('sec30orstart'):
+            if send_command_to_tunnel('clearorstop'):
+
+                send_command_to_tunnel('timecook')
+                send_command_to_tunnel(number_dict[minutes])
+                if seconds == 0:
+                    send_command_to_tunnel(number_dict[0])
+                    send_command_to_tunnel(number_dict[0])
+                else:
+                    send_command_to_tunnel(number_dict[seconds / 10])
+                    send_command_to_tunnel(number_dict[seconds % 10])
+
                 speech_output = "Starting microwave for " + str(minutes) + " minutes " + str(seconds) + " seconds."
                 reprompt_text = ""
             else:
