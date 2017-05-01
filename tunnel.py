@@ -25,4 +25,5 @@ while 1:
     print "received data:", data
     conn_lambda.close()
     conn_pi.send(data)  # echo
+    
 conn_pi.close()

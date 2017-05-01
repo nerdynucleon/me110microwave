@@ -10,6 +10,7 @@ for i in range(2,28):
 
 print('All output pins set to zero.')
 
+# Pull new code from repository
 import socket
 import os
 
