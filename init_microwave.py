@@ -20,4 +20,4 @@ while(True):
 		os.system('git --git-dir=/home/pi/me110microwave/.git pull')
 		break
 	except Exception as err:
-		print(ex.message)
+		print(err.message)
