@@ -85,8 +85,7 @@ def send_command_to_tunnel(command):
         print(command)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((TCP_IP, TCP_PORT))
-        s.send(command)
-        s.send('|')
+        s.send(command + '|')
         s.close()
         return True
     except Exception as err:
