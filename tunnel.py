@@ -28,4 +28,3 @@ try:
       conn_pi.send(data)  # echo
 except KeyboardInterrupt:
     conn_pi.close()
-
