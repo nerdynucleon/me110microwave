@@ -35,7 +35,7 @@ gpio_func = {
 }
 
 def flip_GPIO(func):
-    if not func:
+    if func:
       try:
         pin_num = gpio_func[func]
         print('func: ' + func)
@@ -56,6 +56,8 @@ for i in range(2,28):
 	GPIO.output(i, GPIO.LOW)
 # Open Socket to Server
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+print('Listening for Requests: ...')
 
 while(1):
 	try:
