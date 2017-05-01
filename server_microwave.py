@@ -37,6 +37,7 @@ gpio_func = {
 def flip_GPIO(func):
     try:
       pin_num = gpio_func[func]
+      print('func' + func + "switch gpio:" + str(pin_num))
       GPIO.output(pin_num, GPIO.HIGH)
       time.sleep(0.5)
       GPIO.output(pin_num, GPIO.LOW)	
