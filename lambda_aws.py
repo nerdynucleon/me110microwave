@@ -195,7 +195,7 @@ def set_time_intent(intent, session):
             reprompt_text = speech_output
         else:
             # Otherwise turn on microwave for set amount of time
-            if send_command_to_tunnel('clearorstop'):
+            if send_command_to_tunnel('clear'):
                 send_command_to_tunnel('timecook')
                 send_command_to_tunnel(number_dict[minutes])
                 if seconds == 0:
@@ -237,7 +237,7 @@ def cook_popcorn_intent(intent, session):
         reprompt_text = "Select a number between one and four."
     else:
         # Cook Pizza
-        if send_command_to_tunnel('clearorstop'):
+        if send_command_to_tunnel('clear'):
             send_command_to_tunnel('popcorn')
 
             if ounces >= 2:
@@ -271,7 +271,14 @@ def cook_potato_intent(intent, session):
 
     potatoes = 1
     if 'value' in intent['slots']['potatoes']:
-        potatoes = int(intent['slots']['potatoes']['value'])
+        try:
+            potatoes = int(intent['slots']['potatoes']['value'])
+        except:
+            speech_output = "I didn't understand how many potatoes you wanted to cook."
+            reprompt_text = ""
+            return build_response(session_attributes, build_speechlet_response(
+                card_title, speech_output, reprompt_text, should_end_session))
+
 
     # Check if Inputs are Valid
     if ( potatoes > 3 or potatoes < 1):
@@ -313,7 +320,14 @@ def cook_pizza_intent(intent, session):
 
     slices = 1
     if 'value' in intent['slots']['slices']:
-        slices = int(intent['slots']['slices']['value'])
+        try:
+            slices = int(intent['slots']['slices']['value'])
+        except:
+            speech_output = "I didn't hear how many slices you wanted to cook."
+            reprompt_text = ""
+            return build_response(session_attributes, build_speechlet_response(
+                card_title, speech_output, reprompt_text, should_end_session))
+        
 
     # Check if Inputs are Valid
     if ( slices > 3 or slices < 1):
@@ -337,6 +351,26 @@ def cook_pizza_intent(intent, session):
         else:
             speech_output = "Failed to connect to microwave."
             reprompt_text = "Verify microwave is connected to internet."
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+# Cook Pizza
+def stop_microwave_intent(intent, session):
+    """ Sets the color in the session and prepares the speech to reply to the
+    user.
+    """
+
+    card_title = intent['name']
+    session_attributes = {}
+    should_end_session = False
+
+    # Cook Pizza
+    if send_command_to_tunnel('clearorstop'):
+        speech_output = "Microwave stopped."
+        reprompt_text = ""
+    else:
+        speech_output = "Failed to connect to microwave."
+        reprompt_text = "Verify microwave is connected to internet."
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
@@ -377,6 +411,8 @@ def on_intent(intent_request, session):
         return cook_potato_intent(intent, session)
     elif intent_name == "CookPizzaIntent":
         return cook_pizza_intent(intent, session)
+    elif intent_name == "StopMicrowaveIntent":
+        return stop_microwave_intent(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

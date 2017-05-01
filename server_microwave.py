@@ -21,7 +21,8 @@ gpio_func = {
   'sec30orstart' : 16, 
   'reheat' : 19, 
   'kitchentimer' : 13, 
-  'clearorstop' : 12, 
+  'clearorstop' : 12,
+  'clear' : 12, 
   'beverage' : 5, 
   'clock' : 7, 
   'frozen_vegetable' : 25, 
@@ -41,7 +42,7 @@ def flip_GPIO(func):
         print('func: ' + func)
         print("switch gpio:" + str(pin_num))
         GPIO.output(pin_num, GPIO.HIGH)
-        if pin_num == 12:
+        if func == 'clear'
           time.sleep(0.5)
         else:
           time.sleep(0.1)
