@@ -40,11 +40,38 @@ def build_response(session_attributes, speechlet_response):
         'response': speechlet_response
     }
 
+gpio_func = {
+  'num0' : 24, 
+  'num1' : 17, 
+  'num2' : 4,  
+  'num3' : 11, 
+  'num4' : 6,  
+  'num5' : 26, 
+  'num6' : 10, 
+  'num7' : 27, 
+  'num8' : 14, 
+  'num9' : 8,  
+  'sec30orstart' : 16, 
+  'reheat' : 19, 
+  'kitchentimer' : 13, 
+  'clearorstop' : 12, 
+  'beverage' : 5, 
+  'clock' : 7, 
+  'frozen_vegetable' : 25, 
+  'power' : 9, 
+  'popcorn' : 23, 
+  'timecook' : 22, 
+  'potato' : 18, 
+  'timedefrost' : 15, 
+  'pizza' : 3, 
+  'weightdefrost' : 2
+}
+
 def send_command_to_tunnel(command):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((TCP_IP, TCP_PORT))
-        s.send(str(minutes)+"m"+str(seconds)+"s")
+        s.send(gpio_func[command])
         s.close()
         return True
     except:
@@ -103,10 +130,12 @@ def set_time_intent(intent, session):
             reprompt_text = speech_output
         else:
             # Otherwise turn on microwave for set amount of time
-
-
-            speech_output = "Starting microwave for " + str(minutes) + " minutes " + str(seconds) + " seconds."
-            reprompt_text = ""
+            if send_command_to_tunnel('sec30orstart'):
+                speech_output = "Starting microwave for " + str(minutes) + " minutes " + str(seconds) + " seconds."
+                reprompt_text = ""
+            else:
+                speech_output = "Failed to connect to microwave."
+                reprompt_text = "Verify microwave is connected to internet."
     else:
         speech_output = "I'm not sure what you mean."
         reprompt_text = "I'm not sure what you mean. Please try again"

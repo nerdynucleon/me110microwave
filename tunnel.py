@@ -17,13 +17,15 @@ socket_lambda = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket_lambda.bind((TCP_IP, TCP_PORT_lambda))
 
 print 'Connection address:', addr_pi
-while 1:
-    # Listen For Lambda Connections
-    socket_lambda.listen(1)
-    conn_lambda, addr_lambda = socket_lambda.accept()
-    data = conn_lambda.recv(BUFFER_SIZE)
-    print "received data:", data
-    conn_lambda.close()
-    conn_pi.send(data)  # echo
-    
-conn_pi.close()
+try:
+  while 1:
+      # Listen For Lambda Connections
+      socket_lambda.listen(1)
+      conn_lambda, addr_lambda = socket_lambda.accept()
+      data = conn_lambda.recv(BUFFER_SIZE)
+      print "received data:", data
+      conn_lambda.close()
+      conn_pi.send(data)  # echo
+except KeyboardInterrupt:
+    conn_pi.close()
+
