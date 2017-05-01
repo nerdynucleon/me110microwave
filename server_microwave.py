@@ -57,14 +57,17 @@ for i in range(2,28):
 # Open Socket to Server
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-print('Listening for Requests: ...')
 
+print('Connecting to Tunnel: ...')
 while(1):
 	try:
 		s.connect((TCP_IP, TCP_PORT))
 		break
     	except:
         	attempts = 1
+print('Connected!')
+print('Listening for Requests: ...')
+
 while(1):
 	data = s.recv(BUFFER_SIZE)
 	print "recv:", data
