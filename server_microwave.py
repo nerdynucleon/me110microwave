@@ -41,6 +41,8 @@ def flip_GPIO(func):
       time.sleep(0.5)
       GPIO.output(pin_num, GPIO.LOW)	
     except Exception as err:
+      print('Encountered Error')
+      print(func)
       print(err.message)
 
 # Initialize
