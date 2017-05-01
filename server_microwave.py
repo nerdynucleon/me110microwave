@@ -59,6 +59,11 @@ GPIO.setmode(GPIO.BCM)
 for i in range(2,28):
 	GPIO.setup(i, GPIO.OUT)
 	GPIO.output(i, GPIO.LOW)
+
+GPIO.output(12, GPIO.HIGH)
+time.sleep(0.5)
+GPIO.output(12, GPIO.LOW)
+
 # Open Socket to Server
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
