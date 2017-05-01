@@ -11,7 +11,7 @@ for i in range(2,28):
 
 GPIO.output(12, GPIO.HIGH)
 time.sleep(0.5)
-GPIO.output(12 GPIO.LOW)
+GPIO.output(12, GPIO.LOW)
 
 print('All output pins set to zero.')
 
