@@ -27,7 +27,7 @@ gpio_func = {
   'frozen_vegetable' : 25, 
   'power' : 9, 
   'popcorn' : 23, 
-  'timecook' : 13, 
+  'timecook' : 22, 
   'potato' : 18, 
   'timedefrost' : 15, 
   'pizza' : 3, 
