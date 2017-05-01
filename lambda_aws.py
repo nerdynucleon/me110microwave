@@ -196,6 +196,7 @@ def set_time_intent(intent, session):
         else:
             # Otherwise turn on microwave for set amount of time
             if send_command_to_tunnel('clear'):
+                send_command_to_tunnel('clear')
                 send_command_to_tunnel('timecook')
                 send_command_to_tunnel(number_dict[minutes])
                 if seconds == 0:
