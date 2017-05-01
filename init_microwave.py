@@ -11,14 +11,12 @@ for i in range(2,28):
 print('All output pins set to zero.')
 
 # Pull new code from repository
-import socket
 import os
 
 while(True):
-	try:
-		socket.setdefaulttimeout(3)
-		socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("8.8.8.8", 53))
+	resp = os.system("ping -c 1 8.8.8.8")
+	if resp == 0:	
 		os.system('git --git-dir=/home/pi/me110microwave/.git pull')
 		break
-	except Exception as err:
-		print(err.message)
+	else:
+		print('no connection to google')
